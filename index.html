@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elysium – Live Registrations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: #050505;
+      overflow: hidden;
+      color: #eaeaea;
+    }
+
+    
+    .grid {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 80px 80px;
+      transform: rotate(45deg);
+      top: -50%;
+      left: -50%;
+      z-index: 1;
+    }
+
+    
+    .beam {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,255,255,0.15), transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      filter: blur(60px);
+    }
+
+   
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 120px;
+      background: linear-gradient(180deg, white, transparent);
+      opacity: 0.8;
+      animation: shoot 4s linear infinite;
+      z-index: 3;
+    }
+    .star:nth-child(1) {
+  top: -20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.star:nth-child(2) {
+  top: -30%;
+  left: 45%;
+  animation-delay: 1.5s;
+}
+
+.star:nth-child(3) {
+  top: -25%;
+  left: 65%;
+  animation-delay: 3s;
+}
+
+.star:nth-child(4) {
+  top: -35%;
+  left: 80%;
+  animation-delay: 4.5s;
+}
+.star:nth-child(5) {
+  top: -15%;
+  left: 30%;
+  animation-delay: 2.2s;
+}
+
+    @keyframes shoot {
+      0% {
+        transform: translateY(0) translateX(0) rotate(45deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(120vh) translateX(120vw) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+  
+    .container {
+      position: relative;
+      z-index: 5;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .title {
+  font-size: 4.5rem;
+  letter-spacing: 6px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #7f7cff, #9b5cff, #4cc9f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 25px;
+}
+
+.title::after {
+  content: "";
+  display: block;
+  width: 70%;
+  height: 4px;
+  margin: 15px auto 0;
+  background: linear-gradient(90deg, #9b5cff, #4cc9f0);
+  border-radius: 10px;
+}
+.subtitle {
+  font-size: 1.8rem;
+  color: #7dff7d;
+  margin-bottom: 15px;
+}
+
+.count {
+  font-size: 8rem;
+  color: #ffffff;
+  margin: 25px 0;
+  text-shadow: 0 0 30px rgba(0,255,255,0.7);
+}
+
+    .badge {
+      margin-top: 15px;
+      padding: 10px 25px;
+      border: 1px solid #7dff7d;
+      border-radius: 30px;
+      color: #7dff7d;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 30px;
+      font-size: 1rem;
+      letter-spacing: 3px;
+      color: #5a7aed;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <div class="grid"></div>
+  <div class="beam"></div>
+
+  
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+   <div class="star"></div>
+
+
+  <div class="container">
+    <div class="title">ELYSIUM</div>
+    <div class="subtitle">TOTAL REGISTRATIONS</div>
+    <div class="count" id="count">50</div>
+    <div class="badge">Live • Updates every second</div>
+
+    <div class="footer">IEEE – WIE</div>
+  </div>
+<script>
+const SHEET_ID = "1USMh-a0ap-77qmC5jmogqs8fJwksfss2Qusrwf3konk";
+const SHEET_NAME = "Form%20responses%201";
+
+  async function updateCount() {
+    try {
+      const res = await fetch(`https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`);
+      const data = await res.json();
+      console.log(data)
+      document.getElementById("count").innerText = data.length+50;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  updateCount();
+  setInterval(updateCount, 10000);
+</script>
+</body>
+</html>
