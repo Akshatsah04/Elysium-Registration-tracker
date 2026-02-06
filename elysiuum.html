@@ -191,15 +191,15 @@
     <div class="footer">IEEE – WIE</div>
   </div>
 <script>
-  const SHEET_ID ="1RoEiZ_sf0H3u8Xczm94n0GwOjqhNJ4rpdO69lt6IG3I";
-  const SHEET_NAME ="Form%20responses%201";
+const SHEET_ID = "1USMh-a0ap-77qmC5jmogqs8fJwksfss2Qusrwf3konk";
+const SHEET_NAME = "Form%20responses%201";
 
   async function updateCount() {
     try {
       const res = await fetch(`https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`);
       const data = await res.json();
       console.log(data)
-      document.getElementById("count").innerText = data.length;
+      document.getElementById("count").innerText = data.length+50;
     } catch (e) {
       console.log(e);
     }
